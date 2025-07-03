@@ -30,7 +30,7 @@ public class RobotSimulationTests
     }
 
     [Fact]
-    public void TestPlaceMoveForward2TurnLeft1MoveForward1Report()
+    public void TestPlaceMoveForwardTurnLeft1MoveForward1Report()
     {
         simulatorServices.Place(1, 2, Utilities.EastDirection);
         simulatorServices.MoveForward();
