@@ -1,0 +1,36 @@
+﻿Hello, I used the following request to perform API testing.
+
+a) 
+PLACE 0,0,NORTH
+MOVE
+REPORT
+
+b)
+PLACE 0,0,NORTH
+LEFT
+REPORT
+
+c)
+PLACE 1,2,EAST
+MOVE
+MOVE
+LEFT
+MOVE
+REPORT
+
+d)
+PLACE 14,45,NORTH
+LEFT
+REPORT
+
+
+e)
+PLACE 14,,NORTH
+LEFT
+REPORT
+
+
+f)
+NORTH
+LEFT
+REPORT

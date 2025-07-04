@@ -29,4 +29,8 @@ public class Messages
     {
         get { return "Turned right."; }
     }
+    public static string InvalidRequest
+    {
+        get { return "Invalid request."; }
+    }
 }

@@ -48,12 +48,27 @@ public class RobotSimulatorController : ControllerBase
     {
         return await CreateEnvelope(_robotSimulator.Report());
     }
+
+
+    [HttpGet("download-guide")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public IActionResult DownloadGuide()
+    {
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "download-guide.txt");
+
+        if (!System.IO.File.Exists(filePath))
+            return NotFound("File not found.");
+
+        var fileBytes = System.IO.File.ReadAllBytes(filePath);
+        return File(fileBytes, "application/txt", "download-guide.txt");
+    }
+
     private Task<IActionResult> CreateEnvelope(object message)
     {
         var responseEnvelope = new ResponseEnvelope<object>
         {
-            ResponseBody = message,
-            Flag = true
+            ResponseBody = message
+            //,Flag = true
         };
         return Task.FromResult<IActionResult>(StatusCode(200, responseEnvelope));
     }

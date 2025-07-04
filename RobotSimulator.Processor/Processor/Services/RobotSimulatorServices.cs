@@ -82,9 +82,12 @@ public class RobotSimulatorServices : IRobotSimulator
         string result = "No commands to execute.";
 
         if (string.IsNullOrWhiteSpace(requestCommand))
-            return result;
+            return Messages.InvalidRequest;
 
         list = requestCommand.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        if ((list is null && list.Count == 0) || !list[0].ToUpper().StartsWith("PLACE"))
+            return Messages.InvalidRequest;
 
         for (int index = 0; index < list.Count; index++)
         {
@@ -93,10 +96,8 @@ public class RobotSimulatorServices : IRobotSimulator
             switch (command)
             {
                 case "PLACE":
-
                     //(Nvn): ++index to get the next item in the list
                     var args = list[++index].Split(',');
-
                     if (args.Length == 3 && int.TryParse(args[0], out int x) && int.TryParse(args[1], out int y)
                         && Enum.TryParse(typeof(Directions), args[2], true, out var dir))
                     {
@@ -118,12 +119,12 @@ public class RobotSimulatorServices : IRobotSimulator
                 case "REPORT":
                     result = Report();
                     break;
-                default:
-                    return $"Invalid command: {command}";
+                    //default:
+                    //    return $"Invalid command: {command}";
 
             }
         }
         return result;
     }
-    //Nvn- main class end
+    //(Nvn): RobotSimulatorServices end
 }
