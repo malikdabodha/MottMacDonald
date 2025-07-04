@@ -53,7 +53,7 @@ public class RobotSimulatorController : ControllerBase
         var responseEnvelope = new ResponseEnvelope<object>
         {
             ResponseBody = message,
-            Flag = false
+            Flag = true
         };
         return Task.FromResult<IActionResult>(StatusCode(200, responseEnvelope));
     }
