@@ -1,10 +1,11 @@
 ﻿using RobotSimulator.Models;
+using RobotSimulator.Processor.Interfaces;
 using RobotSimulator.Processor.Services;
 
 namespace RobotSimulator.Test;
 public class RobotSimulationTests
 {
-    private readonly RobotSimulatorServices simulatorServices;
+    private readonly IRobotSimulator simulatorServices;
 
     public RobotSimulationTests()
     {
@@ -39,5 +40,5 @@ public class RobotSimulationTests
         simulatorServices.MoveForward();
         var result = simulatorServices.Report();
         Assert.Equal("Output: 3,3,NORTH", result);
-    }    
+    }
 }

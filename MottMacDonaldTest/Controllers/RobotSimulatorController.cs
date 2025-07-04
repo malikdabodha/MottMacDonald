@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RobotSimulator.Models;
 using RobotSimulator.Processor.Interfaces;
 
@@ -15,6 +14,11 @@ public class RobotSimulatorController : ControllerBase
         _robotSimulator = robotSimulator;
     }
 
+    [HttpPost("runcommands")]
+    public async Task<IActionResult> RunCommands(string requestCommand)
+    {
+        return await CreateEnvelope(_robotSimulator.RunCommands(requestCommand));
+    }
     [HttpPost("place")]
     public async Task<IActionResult> Place(int x, int y, Directions direction)
     {

@@ -9,7 +9,6 @@ var services = builder.Services;
 
 builder.Services.AddControllers();
 
-
 // Create custom exception handler 
 services.AddExceptionHandler<GlobalExceptionMiddleware>();
 services.AddProblemDetails();
@@ -27,7 +26,6 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-
     //app.UseSwagger();
     //app.UseSwaggerUI();
 

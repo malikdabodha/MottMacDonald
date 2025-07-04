@@ -13,4 +13,5 @@ public interface IRobotSimulator
     string TurnLeft();
     string TurnRight();
     string Report();
+    string RunCommands(string commandBatch);
 }

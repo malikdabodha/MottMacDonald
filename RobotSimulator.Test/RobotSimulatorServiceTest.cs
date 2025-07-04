@@ -1,9 +1,10 @@
-﻿using RobotSimulator.Processor.Services;
+﻿using RobotSimulator.Processor.Interfaces;
+using RobotSimulator.Processor.Services;
 
 namespace RobotSimulator.Test;
 public class RobotSimulatorServiceTest
 {
-    private readonly RobotSimulatorServices simulatorServices;
+    private readonly IRobotSimulator simulatorServices;
     public RobotSimulatorServiceTest()
     {
         simulatorServices = new RobotSimulatorServices();
@@ -80,6 +81,16 @@ public class RobotSimulatorServiceTest
         simulatorServices.Place(1, 2, Utilities.SouthDirection);
         var turnLeft = simulatorServices.TurnRight();
         Assert.Equal("Turned right.", turnLeft);
+    }
+    #endregion
+
+    #region Run Commands
+    [Fact]
+    public void RunCommands_Batch()
+    {
+        string requestCommand = "PLACE 1,2,EAST\nMOVE\nMOVE\nLEFT\nMOVE\nREPORT";
+        string result = simulatorServices.RunCommands(requestCommand);
+        Assert.Equal("Output: 3,3,NORTH", result);
     }
     #endregion
 

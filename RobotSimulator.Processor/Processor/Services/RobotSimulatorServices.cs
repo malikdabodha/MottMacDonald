@@ -17,7 +17,7 @@ public class RobotSimulatorServices : IRobotSimulator
             robotState.IsPlaced = true;
             return Messages.RobotPlaced;
         }
-
+        robotState.IsPlaced = false;
         return Messages.InvalidPosition;
     }
     public string MoveForward()
@@ -76,4 +76,54 @@ public class RobotSimulatorServices : IRobotSimulator
 
         return $"Output: {robotState.X},{robotState.Y},{robotState.Direction}";
     }
+    public string RunCommands(string requestCommand)
+    {
+        List<string>? list = null;
+        string result = "No commands to execute.";
+
+        if (string.IsNullOrWhiteSpace(requestCommand))
+            return result;
+
+        list = requestCommand.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        for (int index = 0; index < list.Count; index++)
+        {
+            string command = list[index].Trim().ToUpper();
+
+            switch (command)
+            {
+                case "PLACE":
+
+                    //(Nvn): ++index to get the next item in the list
+                    var args = list[++index].Split(',');
+
+                    if (args.Length == 3 && int.TryParse(args[0], out int x) && int.TryParse(args[1], out int y)
+                        && Enum.TryParse(typeof(Directions), args[2], true, out var dir))
+                    {
+                        Place(x, y, (Directions)dir);
+
+                        if (!robotState.IsPlaced)
+                            return Messages.InvalidPosition;
+                    }
+                    break;
+                case "MOVE":
+                    MoveForward();
+                    break;
+                case "LEFT":
+                    TurnLeft();
+                    break;
+                case "RIGHT":
+                    TurnRight();
+                    break;
+                case "REPORT":
+                    result = Report();
+                    break;
+                default:
+                    return $"Invalid command: {command}";
+
+            }
+        }
+        return result;
+    }
+    //Nvn- main class end
 }
